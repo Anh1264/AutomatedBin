@@ -1,0 +1,12 @@
+version: '4.3'
+
+services:
+  django:  # Django service
+    build: 
+      context: .
+      dockerfile: ./Dockerfile # Specify path from project root
+    env_file:
+      - .env  # Load environment variables from .env file in the root
+    ports:
+      - "8000:8000"   # Dynamically bind to Railway's assigned port
+  
