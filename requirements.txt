@@ -6,7 +6,12 @@ psycopg2-binary
 dj-database-url
 requests
 djangorestframework
-
 whitenoise
-
 pillow
+tensorflow-cpu
+keras
+numpy
+google-api-python-client
+google-auth
+google-auth-oauthlib
+google-auth-httplib2
