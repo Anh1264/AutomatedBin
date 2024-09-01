@@ -14,6 +14,6 @@ class OttoImageSerializer(serializers.ModelSerializer):
             ]
         
     def create(self, validated_data):
-        print("Validated Data:",validated_data)
+        # print("Validated Data:",validated_data)
         instance = OttoImage.objects.create(**validated_data)
         return instance
