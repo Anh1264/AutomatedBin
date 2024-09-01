@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from .serializers import OttoImageSerializer
 from .models import OttoImage
 from .services.AI_infer import return_infer_response
-from .services.background_tasks import save_image_data
+from .tasks.background_tasks import save_image_data_task
 
 class OttoMixinView(
     generics.GenericAPIView, 
@@ -34,7 +34,7 @@ class OttoMixinView(
             print('robot_id:', robot_id)
             inference_response = return_infer_response(b64_image_data)
             print(inference_response)
-            save_image_data(b64_image_data, robot_id, inference_response)
+            save_image_data_task.delay(b64_image_data, robot_id, inference_response)
             
             return self.create(request, *args, **kwargs)
         except ValidationError as e:

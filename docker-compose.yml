@@ -1,6 +1,19 @@
 version: '4.3'
 
 services:
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    command: redis-server --bind 0.0.0.0
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    
+
   django:  # Django service
     build: 
       context: .
@@ -9,4 +22,15 @@ services:
       - .env  # Load environment variables from .env file in the root
     ports:
       - "8000:8000"   # Dynamically bind to Railway's assigned port
-  
+    depends_on:
+      - redis
+
+  celery:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - django
