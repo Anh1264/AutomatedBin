@@ -18,7 +18,7 @@ class OttoImage(models.Model):
     image_data = models.TextField(null=True, blank=True)
     cap_time = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     # One to many relationship with robot
-    robot = models.ForeignKey(Robot, on_delete=models.SET_NULL, null=True)
+    robot = models.ForeignKey(Robot, on_delete=models.SET_NULL, null=True) #no more robot
 
     def __str__(self):
         return f"{self.otto_inference} taken by {self.robot}"

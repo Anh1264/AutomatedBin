@@ -14,12 +14,12 @@ import numpy as np
 
 def infer(b64_image_data):
     # load model for use
-    model = keras.models.load_model('AI_model/Image_classif2.keras')
-    clas_name = ['Errors', 'Food', 'Metal', 'Misc', 'Null', 'Phone', 'Plastic', 'Tissue', 'Wrapping', 'carton', 'paper']
+    model = keras.models.load_model('AI_model/biio.keras')
+    clas_name = ["HDPE", "PE", "PET", "PP", "Paper", "Metal", "Non-Recyclable", "Tissue"]
     file_data = base64.b64decode(b64_image_data)
     file_io = io.BytesIO(file_data)
     image = Image.open(file_io)
-    image = image.resize((180, 180))
+    image = image.resize((224, 224))
 
     img_arr = keras.utils.array_to_img(image)
     img_bat = tensorflow.expand_dims(img_arr,0)
@@ -43,10 +43,3 @@ def infer(b64_image_data):
         'confidence': confidence,
         'processing_time': processing_time
         }
-
-
-
-
-
-
-
