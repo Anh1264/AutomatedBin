@@ -14,9 +14,12 @@ import numpy as np
 
 def infer(b64_image_data):
     # load model for use
-    print("Loading model")
-    model = keras.models.load_model('AI_model/biio.keras')
-    print("Model Loaded")
+    try:
+        print("Loading model")
+        model = keras.models.load_model('AI_model/biio.keras')
+        print("Model Loaded")
+    except Exception as e:
+        print(f"Error loading model: {e}")
     clas_name = ["HDPE", "PE", "PET", "PP", "Paper", "Metal", "Non-Recyclable", "Tissue"]
     file_data = base64.b64decode(b64_image_data)
     file_io = io.BytesIO(file_data)
