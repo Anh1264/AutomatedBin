@@ -29,7 +29,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-    command: celery -A myproject multi start worker -l info --pidfile=/tmp/celery.pid 
+    command: celery -A myproject worker -l info &
     env_file:
       - .env
     depends_on:
