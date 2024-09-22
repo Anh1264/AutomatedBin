@@ -19,9 +19,9 @@ echo "Gunicorn server started in the background!"
 
 # 4. Start Celery worker (if applicable)
 # Uncomment and adjust the following lines if you're using Celery
-# echo "Starting Celery worker..."
-# celery -A myproject worker -l info &  # Replace 'myproject' with your actual project name
-# echo "Celery worker started in the background!"
+echo "Starting Celery worker..."
+celery -A myproject worker -l info &  # Replace 'myproject' with your actual project name
+echo "Celery worker started in the background!"
 
 # 5. Keep the Container Running 
 tail -f /dev/null
