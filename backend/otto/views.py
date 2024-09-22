@@ -36,7 +36,7 @@ class OttoMixinView(
 
             inference_response = return_infer_response(b64_image_data)
             print(inference_response)
-
+            print("Celery tasks about to initiate")
             # Get the fully qualified serializer class name
             serializer_class_name = self.get_serializer_class().__module__ + '.' + self.get_serializer_class().__name__
 
