@@ -29,9 +29,14 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-    command: celery -A myproject worker -l info & 
+    command: celery -A myproject multi start worker -l info --pidfile=/tmp/celery.pid 
     env_file:
       - .env
     depends_on:
       - redis
       - django
+    healthcheck:
+      test: ["CMD", "celery", "-A", "myproject", "inspect", "ping"]
+      interval: 10s  # Adjust interval as needed
+      timeout: 5s
+      retries: 3
