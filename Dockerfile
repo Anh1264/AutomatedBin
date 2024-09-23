@@ -42,10 +42,10 @@ COPY ./requirements.txt /code/backend/requirements.txt
 # copy the project code into the container's working directory
 COPY ./backend /code/backend
 
-RUN echo "Copying biio.keras to /code/backend/AI_model/"
-COPY ./backend/AI_model/biio.keras /code/backend/AI_model/biio.keras 
-# Add this line to print a confirmation message
-RUN echo "Copied biio.keras to /code/backend/AI_model/"
+# RUN echo "Copying biio.keras to /code/backend/AI_model/"
+# COPY ./backend/AI_model/biio.keras /code/backend/AI_model/biio.keras 
+# # Add this line to print a confirmation message
+# RUN echo "Copied biio.keras to /code/backend/AI_model/"
 # Install the Python project requirements
 RUN pip install -r /code/backend/requirements.txt
 
@@ -55,10 +55,15 @@ ENV DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
 ARG DJANGO_DEBUG=0
 ENV DJANGO_DEBUG=${DJANGO_DEBUG}
 
+ARG CELERY_WORKER
+ENV CELERY_WORKER=${CELERY_WORKER}
+
+ARG CELERY_BACKEND
+ENV CELERY_BACKEND=${CELERY_BACKEND}
 # database isn't available during build
 # run any other commands that do not need the database
 # such as:
-# RUN python manage.py vendor_pull
+# RUN python /code/backend/manage.py pull_model
 # RUN python manage.py collectstatic --noinput
 #whitenoise
 

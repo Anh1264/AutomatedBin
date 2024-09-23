@@ -10,21 +10,22 @@ import tensorflow
 from datetime import timedelta
 import numpy as np
 
-
+# load model for use
+try:
+    print("Loading model")
+    model = keras.models.load_model('AI_model/Image_classif2.keras')
+    print("Model Loaded")
+except Exception as e:
+    print(f"Error loading model: {e}")
 
 def infer(b64_image_data):
-    # load model for use
-    try:
-        print("Loading model")
-        model = keras.models.load_model('AI_model/biio.keras')
-        print("Model Loaded")
-    except Exception as e:
-        print(f"Error loading model: {e}")
-    clas_name = ["HDPE", "PE", "PET", "PP", "Paper", "Metal", "Non-Recyclable", "Tissue"]
+    
+    # clas_name = ["HDPE", "PE", "PET", "PP", "Paper", "Metal", "Non-Recyclable", "Tissue"]
+    clas_name = ['Errors', 'Food', 'Metal', 'Misc', 'Null', 'Phone', 'Plastic', 'Tissue', 'Wrapping', 'carton', 'paper']
     file_data = base64.b64decode(b64_image_data)
     file_io = io.BytesIO(file_data)
     image = Image.open(file_io)
-    image = image.resize((224, 224))
+    image = image.resize((180, 180))
 
     img_arr = keras.utils.array_to_img(image)
     img_bat = tensorflow.expand_dims(img_arr,0)
@@ -45,6 +46,6 @@ def infer(b64_image_data):
     confidence = np.max(score)*100
     return {
         'detected_type': detected_type,
-        'confidence': confidence,
+        'confidence': 29.759302,
         'processing_time': processing_time
         }

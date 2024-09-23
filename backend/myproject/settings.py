@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'robot',
     'otto',
+    'commando',
 ]
 
 MIDDLEWARE = [
@@ -141,6 +142,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+AI_MODEL_DIR = BASE_DIR / "test_folder"
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
@@ -149,3 +152,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CELERY_BROKER_URL = config("CELERY_WORKER")
 CELERY_RESULT_BACKEND = config("CELERY_BACKEND")
 print(CELERY_BROKER_URL, CELERY_RESULT_BACKEND)
+
